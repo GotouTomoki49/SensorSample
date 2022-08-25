@@ -8,7 +8,7 @@
 import SwiftUI
 import RealityKit
 
-struct ContentView : View {
+struct SensorView: View {
     var body: some View {
         return ARViewContainer().edgesIgnoringSafeArea(.all)
     }
@@ -31,13 +31,12 @@ struct ARViewContainer: UIViewRepresentable {
         
         // テキストを作成
         let textMesh = MeshResource.generateText(
-            "ケータイ・アプリケーション科",
-            extrusionDepth: 0.1,
-            font: .systemFont(ofSize: 0.5),
+            "日専祭",
+            extrusionDepth: 2.0,
+            font: .systemFont(ofSize: 2.0),
             containerFrame: CGRect.zero,
             alignment: .left,
             lineBreakMode: .byTruncatingTail)
-        
         // 環境マッピングするマテリアルを設定
         let textMaterial = SimpleMaterial(color: UIColor.yellow, roughness: 0.0, isMetallic: true)
         let textModel = ModelEntity(mesh: textMesh, materials: [textMaterial])
@@ -46,7 +45,7 @@ struct ARViewContainer: UIViewRepresentable {
         anchor.addChild(textModel)
         
         // 立方体を作成
-        let boxMesh = MeshResource.generateBox(size: 0.1)
+        let boxMesh = MeshResource.generateBox(size: 0.05)
         // 光源を無視する単色を設定
         let boxMaterial = UnlitMaterial(color: UIColor.red)
         let boxModel = ModelEntity(mesh: boxMesh, materials: [boxMaterial])
@@ -54,7 +53,7 @@ struct ARViewContainer: UIViewRepresentable {
         anchor.addChild(boxModel)
         
         // 球体を作成
-        let sphereMesh = MeshResource.generateSphere(radius: 0.1)
+        let sphereMesh = MeshResource.generateSphere(radius: 0.05)
         // 環境マッピングするマテリアルを設定
         let sphereMaterial = SimpleMaterial(color: UIColor.white, roughness: 0.0, isMetallic: true)
         let sphereModel = ModelEntity(mesh: sphereMesh, materials: [sphereMaterial])
@@ -67,10 +66,8 @@ struct ARViewContainer: UIViewRepresentable {
     func updateUIView(_ uiView: ARView, context: Context) {}
 }
 
-#if DEBUG
-struct ContentView_Previews : PreviewProvider {
+struct SensorView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        SensorView()
     }
 }
-#endif
