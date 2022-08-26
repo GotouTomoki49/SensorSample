@@ -18,18 +18,18 @@ struct ARViewContainer: UIViewRepresentable {
     
     func makeUIView(context: Context) -> ARView {
         
-        // RealityKit のメインとなるビュー
+        // RealityKitのメインビュー
         let arView = ARView(frame: .zero)
         
         // デバッグ用設定
-        // 処理の統計情報と、検出した3D空間の特徴点を表示する。
+        // 処理の統計情報と、検出した3D空間の特徴点を表示
         arView.debugOptions = [.showStatistics, .showFeaturePoints]
         
         // シーンにアンカーを追加する
         let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.15, 0.15])
         arView.scene.anchors.append(anchor)
         
-        // テキストを作成
+        // 表示するテキストを作成
         let textMesh = MeshResource.generateText(
             "日専祭",
             extrusionDepth: 2.0,
@@ -37,6 +37,7 @@ struct ARViewContainer: UIViewRepresentable {
             containerFrame: CGRect.zero,
             alignment: .left,
             lineBreakMode: .byTruncatingTail)
+        
         // 環境マッピングするマテリアルを設定
         let textMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: true)
         let textModel = ModelEntity(mesh: textMesh, materials: [textMaterial])
@@ -44,18 +45,25 @@ struct ARViewContainer: UIViewRepresentable {
         textModel.position = SIMD3<Float>(0.0, 0.0, -0.2) // 奥0.2m
         anchor.addChild(textModel)
         
-        // 立方体を作成
-        let boxMesh = MeshResource.generateBox(size: 0.03)//0.03サイズ
-        // 光源を無視する単色を設定
+        // 箱を作成
+        //0.03サイズ
+        let boxMesh = MeshResource.generateBox(size: 0.03)
+        
+        //単色の設定
+        //箱-青
         let boxMaterial = UnlitMaterial(color: UIColor.blue)
         let boxModel = ModelEntity(mesh: boxMesh, materials: [boxMaterial])
-        boxModel.position = SIMD3<Float>(-0.2, 0.0, 0.0) // 左0.2m
+        // 左0.2m
+        boxModel.position = SIMD3<Float>(-0.2, 0.0, 0.0)
         anchor.addChild(boxModel)
         
         // 球体を作成
-        let sphereMesh = MeshResource.generateSphere(radius: 0.03)//0.03サイズ
+        //0.03サイズ
+        let sphereMesh = MeshResource.generateSphere(radius: 0.03)
+        
         // 環境マッピングするマテリアルを設定
-        let sphereMaterial = SimpleMaterial(color: UIColor.white, roughness: 0.0, isMetallic: true)
+        //球体-緑
+        let sphereMaterial = SimpleMaterial(color: UIColor.green, roughness: 0.0, isMetallic: true)
         let sphereModel = ModelEntity(mesh: sphereMesh, materials: [sphereMaterial])
         sphereModel.position = SIMD3<Float>(0.0, 0.0, 0.0)
         anchor.addChild(sphereModel)
