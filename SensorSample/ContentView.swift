@@ -8,7 +8,7 @@
 import SwiftUI
 import RealityKit
 
-struct SensorView: View {
+struct ContentView: View {
     var body: some View {
         return ARViewContainer().edgesIgnoringSafeArea(.all)
     }
@@ -38,22 +38,22 @@ struct ARViewContainer: UIViewRepresentable {
             alignment: .left,
             lineBreakMode: .byTruncatingTail)
         // 環境マッピングするマテリアルを設定
-        let textMaterial = SimpleMaterial(color: UIColor.yellow, roughness: 0.0, isMetallic: true)
+        let textMaterial = SimpleMaterial(color: UIColor.red, roughness: 0.0, isMetallic: true)
         let textModel = ModelEntity(mesh: textMesh, materials: [textMaterial])
         textModel.scale = SIMD3<Float>(0.1, 0.1, 0.1) // 10分の1に縮小
         textModel.position = SIMD3<Float>(0.0, 0.0, -0.2) // 奥0.2m
         anchor.addChild(textModel)
         
         // 立方体を作成
-        let boxMesh = MeshResource.generateBox(size: 0.05)
+        let boxMesh = MeshResource.generateBox(size: 0.03)//0.03サイズ
         // 光源を無視する単色を設定
-        let boxMaterial = UnlitMaterial(color: UIColor.red)
+        let boxMaterial = UnlitMaterial(color: UIColor.blue)
         let boxModel = ModelEntity(mesh: boxMesh, materials: [boxMaterial])
         boxModel.position = SIMD3<Float>(-0.2, 0.0, 0.0) // 左0.2m
         anchor.addChild(boxModel)
         
         // 球体を作成
-        let sphereMesh = MeshResource.generateSphere(radius: 0.05)
+        let sphereMesh = MeshResource.generateSphere(radius: 0.03)//0.03サイズ
         // 環境マッピングするマテリアルを設定
         let sphereMaterial = SimpleMaterial(color: UIColor.white, roughness: 0.0, isMetallic: true)
         let sphereModel = ModelEntity(mesh: sphereMesh, materials: [sphereMaterial])
@@ -66,8 +66,8 @@ struct ARViewContainer: UIViewRepresentable {
     func updateUIView(_ uiView: ARView, context: Context) {}
 }
 
-struct SensorView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SensorView()
+        ContentView()
     }
 }
